@@ -36,8 +36,9 @@
 
         Telegram.WebApp.MainButton.onClick(function() {
             const data = { lat: currentCoords[0], lon: currentCoords[1] };
-            console.log("Відправка даних:", data);
+            console.log("Спроба відправки:", data);
             Telegram.WebApp.sendData(JSON.stringify(data));
+            console.log("Дані відправлено:", JSON.stringify(data));
             Telegram.WebApp.close();
         });
     </script>
