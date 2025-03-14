@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Transport Map</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body { margin: 0; padding: 20px; background-color: #f0f0f0; }
+    </style>
+</head>
+<body>
+    <h1>Тест Web App</h1>
+    <p>Координати: <span id="coords">50.4501, 30.5234</span></p>
+    <button onclick="updateCoords()">Змінити точку</button>
+    <script>
+        let currentCoords = [50.4501, 30.5234];
+        console.log("Скрипт запущен");
+
+        function updateCoords() {
+            currentCoords = [currentCoords[0] + 0.01, currentCoords[1] + 0.01];
+            document.getElementById('coords').innerText = currentCoords.join(', ');
+            console.log("Координати змінено:", currentCoords);
+        }
+
+        Telegram.WebApp.ready();
+        console.log("Telegram WebApp ініціалізовано");
+
+        Telegram.WebApp.MainButton.setText("Відправити");
+        Telegram.WebApp.MainButton.setParams({
+            color: "#4CAF50",
+            text_color: "#FFFFFF"
+        });
+        Telegram.WebApp.MainButton.show();
+        console.log("Кнопка 'Відправити' налаштована");
+
+        Telegram.WebApp.MainButton.onClick(function() {
+            const data = { lat: currentCoords[0], lon: currentCoords[1] };
+            console.log("Відправка даних:", data);
+            Telegram.WebApp.sendData(JSON.stringify(data));
+            Telegram.WebApp.close();
+        });
+    </script>
+</body>
+</html>
